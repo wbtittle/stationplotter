@@ -1,0 +1,42 @@
+{
+  "data-files": {
+    "id":{"start":0, "length":10, "type":"char"},
+    "year":{"start":11, "length":4, "type":"int"},
+    "element":{"start":17, "length":4, "type":"char"},
+    "items": {
+      "value":{"start":0, "length":5, "type":"int"},
+      "mflag":{"start":5, "length":1, "type":"char"},
+      "qflag":{"start":6, "length":1, "type":"char"},
+      "sflag":{"start":7, "length":1, "type":"char"}
+    }
+  },
+  "ghcnd-stations":{
+    "id":{"start":0, "length":11, "type":"char"},
+    "country":{"start":0, "length":2, "type":"char"},
+    "network":{"start":2, "length":1, "type":"char"},
+    "lat":{"start":12, "length":8, "type":"float"},
+    "lng":{"start":21, "length":8, "type":"float"},
+    "alt":{"start":31, "length":6, "type":"char"},
+    "state":{"start":38, "length":2, "type":"char"},
+    "name":{"start":41, "length":29, "type":"char"},
+    "gsn":{"start":72, "length":3, "type":"char"},
+    "hcn":{"start":76, "length":3, "type":"char"},
+    "wmo":{"start":80, "length":5, "type":"char"}
+  },
+  "ghcnd-countries":{
+    "code":{"start":0, "length":2, "type":"char"},
+    "name":{"start":3, "length":37, "type":"float"}
+  },
+  "ghcnd-states":{
+    "code":{"start":0, "length":2, "type":"char"},
+    "name":{"start":3, "length":37, "type":"float"}
+  },
+  "ghcnd-inventory":{
+    "id":{"start":0, "length":11, "type":"char"},
+    "lat":{"start":12, "length":9, "type":"float"},
+    "lng":{"start":21, "length":10, "type":"float"},
+    "element":{"start":31, "length":5, "type":"char"},
+    "firstyear":{"start":36, "length":4, "type":"int"},
+    "lastyear":{"start":41, "length":4, "type":"int"}
+  }
+}
