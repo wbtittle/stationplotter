@@ -22,12 +22,14 @@ function processFile( newData ){
 
     axios.get(url2).then( response => {
       var columns = convert['ghcnd-inventory']
+
+
       response.data.split("\n").forEach( item => {
         var row = {}
         for ( var elem in columns ) {
           row[elem] = item.substr(columns[elem].start, columns[elem].length).trim()
         }
-        if (output.hasOwnProperty(row['id']) && (row['lastyear']-row['firstyear']>30) )
+        if (row.hasOwnProperty('element') && output.hasOwnProperty(row['id']) && (row['lastyear']-row['firstyear']>30 && row['element'].match(/TAVG|TOBS|TMIN|TMAX|PRCP|SNOW|SNWD/)) )
         {
             if(!output[row['id']].hasOwnProperty('inventory'))
               output[row['id']]['inventory'] = []
