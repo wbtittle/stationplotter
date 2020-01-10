@@ -33,12 +33,12 @@ These are the files that can be processed with scripts/loadfiles.js
 
 
 command to process the file is
-...
+```
 node scripts/loadfiles.js [name]
-...
+```
 But the stations are a little problematic so I have one specifically for them.
 
 the command for stations is.
-...
+```
 node scripts/loadstations.js
-...
+```
