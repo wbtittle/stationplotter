@@ -75,9 +75,13 @@ export default {
   },
   watch: {
     station(newStation){
+        this.$store.dispatch("setLoading", true)
         axios.get(this.url+newStation.id+".dly").then( response => (this.stationFile=response))
     },
     chart_settings(){
+      this.parseData()
+    },
+    stationFile(){
       this.parseData()
     }
 
