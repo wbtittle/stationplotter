@@ -1,31 +1,17 @@
 <template>
 <div class="accordion">
   <div class="card" style="width: 30rem">
-
-    <div class='card-header' id='station-select'>
+    <div class='card-header' id='map-select'>
       <h2 class="mb-0">
-        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#stationSelect">
-          Station Select
+        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#mapSelect">
+          Map
         </button>
       </h2>
     </div>
 
-
-    <div id='stationSelect' class="collapse show" style="height: 25%" data-parent="#station-select">
-      <div class="card-body overflow-auto" style="height: 100%; overflow: scroll;">
-        <div v-for="(element, key) in elements" :key="key" class="input-group input-group-sm">
-          <div class="input-group-prepend">
-            <div class="input-group-text">
-              <input type='checkbox' :id="key" v-model="station_elem" :value="key" />
-            </div>
-          </div>
-          <input type='text' class="form-control" :value='element.description' />
-        </div>
-      </div>
-    </div>
+        <MappedStations />
 
 
-    <MappedStations />
 
     <div class='card-header' id='data-select'>
       <h2 class="mb-0">
@@ -60,7 +46,7 @@
       <div class="card-body">
         <div class="input-group input-group-sm">
           <div class="input-group-prepend">
-            <span class="input-group-text">Width</span>
+            <div class="input-group-text">Width</div>
           </div>
           <input class="form-control" v-on:keyup="updateChart" type="text" v-model="chart_settings.width">
 
@@ -68,7 +54,7 @@
           <div class="input-group input-group-sm ">
 
             <div class="input-group-prepend">
-              <span class="input-group-text">Height</span>
+              <div class="input-group-text">Height</div>
             </div>
             <input class="form-control" v-on:keyup="updateChart" type="text" v-model="chart_settings.height">
           </div>
@@ -76,7 +62,7 @@
           <div class="input-group input-group-sm ">
 
             <div class="input-group-prepend">
-              <span class="input-group-text">Start Year</span>
+              <div class="input-group-text">Start Year</div>
             </div>
             <input class="form-control" v-on:keyup="updateChart" type="text" v-model="chart_settings.start_year">
           </div>
@@ -84,7 +70,7 @@
           <div class="input-group input-group-sm ">
 
             <div class="input-group-prepend">
-              <span class="input-group-text">End Year</span>
+              <div class="input-group-text">End Year</div>
             </div>
             <input class="form-control" v-on:keyup="updateChart" type="text" v-model="chart_settings.end_year">
           </div>
@@ -92,7 +78,7 @@
           <div class="input-group input-group-sm ">
 
             <div class="input-group-prepend">
-              <span class="input-group-text">Low Value</span>
+              <div class="input-group-text">Low Value</div>
             </div>
             <input class="form-control" v-on:keyup="updateChart" type="text" v-model="chart_settings.low">
           </div>
@@ -100,7 +86,7 @@
           <div class="input-group input-group-sm ">
 
             <div class="input-group-prepend">
-              <span class="input-group-text">High Value</span>
+              <div class="input-group-text">High Value</div>
             </div>
             <input class="form-control" v-on:keyup="updateChart" type="text" v-model="chart_settings.high">
           </div>
@@ -108,7 +94,7 @@
           <div class="input-group input-group-sm ">
 
             <div class="input-group-prepend">
-              <span class="input-group-text">Temp Units</span>
+              <div class="input-group-text">Temp Units</div>
             </div>
             <input class="form-control" v-on:keyup="updateChart" type="text" v-model="chart_settings.units">
           </div>
@@ -123,13 +109,14 @@
   import { mapState } from "vuex"
   import MappedStations from "@/components/MappedStations"
   import elements from '@/assets/ghcnd-elements.json'
+
   export default {
       name: 'ControlPanel',
       data(){
         return {
           elements: elements,
           elem: [],
-          station_elem: []
+          station_elem: ''
         }
       },
       filters: {
@@ -148,6 +135,9 @@
         }
       },
       computed: {
+        findstations(){
+          return ["TAVG","TOBS","TMIN","TMAX","PRCP","SNOW","SNWD"]
+        },
         inventory(){
           return this.station.inventory
         },
@@ -155,6 +145,7 @@
       },
       methods: {
         updateChart( ){
+          this.$store.dispatch("setLoading", true)
           this.$store.dispatch("setChartValues", {
             width: parseInt(this.chart_settings.width),
             height: parseInt(this.chart_settings.height),
@@ -175,6 +166,7 @@
 </script>
 
 <style>
+  .input-group-prepend.div { width: 33%}
   .card { height: 75vh;}
   .card-body {
     margin: 2px
