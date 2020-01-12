@@ -41,7 +41,7 @@ export default {
     }
   },
   watch: {
-    chart_data( ) {
+    chartData( ) {
       this.drawChart()
     },
     chart_settings() {
@@ -83,6 +83,8 @@ export default {
       .attr("cy", d=> this.scale.y(d.value*this.elements[elem].modifier))
       .attr("stroke",this.elements[elem].color)
       .on('mouseover', this.handleMouseOver)
+
+
     },
 
     drawChart(){
@@ -104,32 +106,46 @@ export default {
                   .attr("transform", `translate(${margin}, ${margin})`)
 
 
+     this.chart.append('g')
+          .call(d3.axisLeft(this.scale.y).ticks(20))
+
+
       this.chart.append('g')
-                .call(d3.axisLeft(this.scale.y).ticks(20))
-      const format = d3.format("0");
-      this.chart.append("g")
+          .attr('class', 'y axis-grid')
+          .call(d3.axisLeft(this.scale.y).tickSize(-this.chart_width).tickFormat('').ticks(20))
+
+    const format = d3.format("0");
+
+     this.chart.append("g")
                 .attr('transform', `translate(0, ${this.chart_height} )`)
-                .call(d3.axisBottom(this.scale.x).tickFormat(format))
+                .call(d3.axisBottom(this.scale.x).tickFormat(format).ticks(20))
 
-      this.circle = this.chart
-            .selectAll('circle')
+      this.chart.append("g")
+          .attr('class', 'x axis-grid')
+          .attr('transform', `translate(0, ${this.chart_height} )`)
+          .call(d3.axisBottom(this.scale.x).tickSize(-this.chart_height).tickFormat('').ticks(20))
 
-            this.chart_settings.elem.forEach( item => this.drawData(item) )
-
-            this.$store.dispatch("setLoading", false)
+      this.circle = this.chart.selectAll('circle')
+      this.chart_settings.elem.forEach( item => this.drawData(item) )
+      this.$store.dispatch("setLoading", false)
     }
   },
 
 };
 </script>
 
-<style scoped>
+<style>
 svg {
   margin: 25px;
 }
 path {
   fill: none;
   stroke: #76BF8A;
+  stroke-width: 1px;
+}
+
+.axis-grid line, .axis-grid path, .axis-grid text {
+  stroke: #def;
   stroke-width: 1px;
 }
 </style>
