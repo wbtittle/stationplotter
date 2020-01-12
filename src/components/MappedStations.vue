@@ -14,37 +14,40 @@ export default {
   data() {
     return {
       stations: stations,
-      markers: {}
+      markers: {},
+      map: {}
     }
   },
   methods: {
     markerClick( marker ){
        const station = this.stations.filter( item => item.id == marker.local_id ).pop()
        this.$store.dispatch("setStation", station )
+
+       this.map.setCenter({ lat:parseFloat(station.lat), lng:parseFloat(station.lng)})
     }
   },
   async mounted(){
     try {
       const google = await gmapsInit();
       const geocoder = new google.maps.Geocoder()
-      const map = new google.maps.Map(this.$el)
+      this.map = new google.maps.Map(this.$el)
+      const lMap = this.map
 
       geocoder.geocode({ address: 'United States' }, (results, status) => {
         if (status !== 'OK' || !results[0]){
           throw new Error(status)
         }
-
-        map.setCenter(results[0].geometry.location)
-        map.fitBounds(results[0].geometry.viewport)
+        this.map.setCenter(results[0].geometry.location)
+        this.map.fitBounds(results[0].geometry.viewport)
       })
 
       this.markers = this.stations.map( ( station ) => {
-        const marker = new google.maps.Marker({ local_id: station.id, title: station.name, position: { lat: parseFloat(station.lat), lng: parseFloat(station.lng)  } , map });
+        const marker = new google.maps.Marker({ local_id: station.id, title: station.name, position: { lat: parseFloat(station.lat), lng: parseFloat(station.lng)  } , lMap });
         marker.addListener('click', () => this.markerClick( marker ))
         return marker
       })
 
-    new MarkerClusterer(map, this.markers, { imagePath: '/img/m'}) 
+    new MarkerClusterer(this.map, this.markers, { imagePath: '/img/m'})
     } catch (error) {
       console.log(error)
     }
