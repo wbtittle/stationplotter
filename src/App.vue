@@ -1,11 +1,11 @@
 <template>
   <div id="app">
-    <div id="nav">
+    <div class="fixed-top " >
+      <img src="/img/Doing+It+Badly-logo-black.png" width="150px" alt="...">
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link>
-      <router-link to="/maps">Maps</router-link> 
     </div>
-    <router-view />
+    <router-view class="RouterArea"/>
   </div>
 </template>
 
@@ -14,20 +14,11 @@
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: #2c3e50;
 }
 
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
+.RouterArea {
+  margin-top: 75px;
 }
+
 </style>
