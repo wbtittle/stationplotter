@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home'
-import MappedStations from '@/components/MappedStations'
+import About from '../views/About'
 
 
 Vue.use(VueRouter)
@@ -13,9 +13,9 @@ const routes = [
     component: Home
   },
   {
-    path: "/maps",
-    name:'maps',
-    component: MappedStations
+    path: "/about",
+    name:'about',
+    component: About
   }
 
 ]

@@ -10,7 +10,7 @@ export default new Vuex.Store({
     station:{ "id":"","country":"","lat":"","lng":"","alt":"","state":"","name":"","gsn":"","hcn":"","wmo":"" ,inventory:["TMAX"]},
     state:{"code":"", "name":""},
     loading: false,
-    station_elem: []
+    station_elem: ''
   },
   getters: {
     station( state ){
@@ -39,8 +39,8 @@ export default new Vuex.Store({
     SET_CHART_VALUES( state, chart ){
       state.chart_settings = chart
     },
-    SET_STATION_ELEM( state, elems ){
-      state.station_elem = elems
+    SET_STATION_ELEM( state, elem ){
+      state.station_elem = elem
     }
   },
   actions: {
@@ -48,22 +48,18 @@ export default new Vuex.Store({
       commit("SET_LOADING", value)
     },
     setCountry( { commit }, country ){
-      console.log("Setting Country", country)
       commit('SET_COUNTRY', country);
     },
     setStation( { commit }, station ){
-      console.log("Setting Station", station)
       commit('SET_STATION', station);
     },
     setState( { commit }, value ){
-      console.log("Setting State", value)
       commit('SET_STATE', value);
     },
     setSiteFile( { commit }, value ){
       commit('SET_SITE_FILE', value);
     },
     setChartValues( { commit }, chart){
-      console.log("COMMIT CHART VALUES ", chart)
       commit('SET_CHART_VALUES', chart)
     },
     setStationElem({ commit }, elems ){
