@@ -8,13 +8,11 @@
 </template>
 
 <script>
-import states from '@/assets/ghcnd-states.json'
 import { mapState } from "vuex"
 export default {
   name: "States",
   data(){
     return {
-      states: states,
       value: ""
     }
   },
@@ -25,7 +23,7 @@ export default {
       else
         return []
     },
-    ...mapState(['country', 'state'])
+    ...mapState(['country', 'state', 'states'])
   },
   methods: {
     setState( event ) {

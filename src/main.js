@@ -8,7 +8,10 @@ Vue.config.productionTip = false
 new Vue({
     router,
     store,
-    render: h => h(App)
+    render: h => h(App),
+    created() {
+      this.$store.dispatch('loadData') // dispatch loading
+    }
 }).$mount('#app')
 
 Date.prototype.isLeapYear = function() {

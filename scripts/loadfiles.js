@@ -15,7 +15,7 @@ function processFile( newData ){
      results.push(row);
      return results
    }, [])
-   fs.writeFile("src/assets/ghcnd-"+myArgs[0]+".json", JSON.stringify(output), 'utf8', function (err) {
+   fs.writeFile("public/data/ghcnd-"+myArgs[0]+".json", JSON.stringify(output), 'utf8', function (err) {
     if (err) {
         console.log("An error occured while writing JSON Object to File.");
         return console.log(err);

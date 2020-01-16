@@ -11,7 +11,6 @@
 import Countries from '@/components/Countries'
 import States from '@/components/States'
 import { mapState } from 'vuex'
-import stations from '@/assets/ghcnd-stations.json'
 
 export default {
   name: "Stations",
@@ -45,7 +44,7 @@ export default {
         this.$store.dispatch("setStation", this.stations.filter( item => item.id == newStation ).pop())
       }
     },
-    ...mapState(['state', 'country', 'station'])
+    ...mapState(['state', 'country', 'station', 'stations'])
   },
   watch: {
     country(newCountry){

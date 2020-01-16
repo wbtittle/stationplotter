@@ -29,10 +29,16 @@ function processFile( newData ){
         for ( var elem in columns ) {
           row[elem] = item.substr(columns[elem].start, columns[elem].length).trim()
         }
-        if (row.hasOwnProperty('element') && output.hasOwnProperty(row['id']) && (row['lastyear']-row['firstyear']>30 && row['element'].match(/TAVG|TOBS|TMIN|TMAX|PRCP|SNOW|SNWD/)) )
+        if (output.hasOwnProperty(row['id']) && row['element'].match(/TAVG|TOBS|TMIN|TMAX/))
         {
+
             if(!output[row['id']].hasOwnProperty('inventory'))
               output[row['id']]['inventory'] = []
+            if (!output[row['id']].hasOwnProperty['data_range'])
+              output[row['id']]['data_range'] = 0;
+
+            if (output[row['id']]['data_range'] < parseInt(row['lastyear'])-parseInt(row['firstyear']))
+              output[row['id']]['data_range'] = row['lastyear']-row['firstyear']
 
             output[row['id']]['inventory'].push(row['element'])
         }
@@ -40,10 +46,10 @@ function processFile( newData ){
       })
       var finalOut = []
       for (item in output){
-        if (output[item].hasOwnProperty('inventory'))
+        if (output[item].hasOwnProperty('inventory') && output[item]['data_range']>30)
           finalOut.push(output[item])
       }
-      fs.writeFile("src/assets/ghcnd-stations.json", JSON.stringify(finalOut), 'utf8', function (err) {
+      fs.writeFile("public/data/ghcnd-stations.json", JSON.stringify(finalOut), 'utf8', function (err) {
        if (err) {
            console.log("An error occured while writing JSON Object to File.");
            return console.log(err);

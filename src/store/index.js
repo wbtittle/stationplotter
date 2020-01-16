@@ -1,13 +1,22 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
+import states from './states.js'
+import countries from './countries.js'
+import stations from './stations.js'
+
 Vue.use(Vuex)
 
 export default new Vuex.Store({
+  modules: {
+    states: states,
+    countries: countries,
+    stations: stations
+  },
   state: {
     chart_settings: { width: 800, height: 600, start_year: 1850, end_year: (new Date()).getFullYear()+1, units: "C", elem:["TMAX"], low:"-80", high:"50" },
     country:{"code":"UK", "name":"United Kingdom"},
-    station:{ "id":"","country":"","lat":"","lng":"","alt":"","state":"","name":"","gsn":"","hcn":"","wmo":"" ,inventory:["TMAX"]},
+    station:{ "id":"","country":"","lat":"45.00","lng":"-45.00","alt":"","state":"","name":"","gsn":"","hcn":"","wmo":"" ,inventory:["TMAX"]},
     state:{"code":"", "name":""},
     loading: false,
     station_elem: ''
@@ -65,9 +74,6 @@ export default new Vuex.Store({
     setStationElem({ commit }, elems ){
       commit("SET_STATION_ELEM", elems);
     }
-
-  },
-  modules: {
 
   }
 })

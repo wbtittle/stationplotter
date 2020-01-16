@@ -9,7 +9,6 @@
 
 <script>
 
-import countries from '@/assets/ghcnd-countries.json'
 import { mapState } from 'vuex'
 export default {
   name: "Countries",
@@ -20,7 +19,7 @@ export default {
     }
   },
   computed: {
-      ...mapState(['country'])
+      ...mapState(['countries','country'])
   },
   methods:{
     setCountry(){

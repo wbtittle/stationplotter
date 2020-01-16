@@ -1,13 +1,13 @@
 <template>
   <div>
-    <div class="card float-right" style="width:20em" v-if="cur_point.hasOwnProperty('index')">
+    <div class="card float-right" style="width:10em" v-if="cur_point.hasOwnProperty('index')">
       <ul class="list-group">
-        <li class="list-group-item">TimeTag: {{ cur_point.index }}</li>
-        <li class="list-group-item">Value: {{ cur_point.value*elements[cur_point.element].modifier }} {{ elements[cur_point.element].units }}</li>
+        <li class="list-group-item">TimeTag: {{ cur_point.index | tenths }}</li>
+        <li class="list-group-item">Value: {{ cur_point.value*elements[cur_point.element].modifier | tenths}} {{ elements[cur_point.element].units }}</li>
         <li class="list-group-item">Element: {{ cur_point.element }}</li>
-        <li class="list-group-item">Measurement: {{ flags["mflags"]["F"+cur_point.mflag.trim()] }}</li>
+        <!--li class="list-group-item">Measurement: {{ flags["mflags"]["F"+cur_point.mflag.trim()] }}</li>
         <li class="list-group-item">Quality: {{ flags["qflags"]["F"+cur_point.qflag.trim()] }}</li>
-        <li class="list-group-item">Source: {{ flags["sflags"]["F"+cur_point.sflag.trim()] }}</li>
+        <li class="list-group-item">Source: {{ flags["sflags"]["F"+cur_point.sflag.trim()] }}</li-->
       </ul>
     </div>
     <svg >
@@ -40,6 +40,11 @@ export default {
       elements: elements
     }
   },
+  filters:{
+    tenths( value ){
+      return value.toPrecision(4)
+    }
+  },
   watch: {
     chartData( ) {
       this.drawChart()
@@ -61,9 +66,11 @@ export default {
         else
             return item
       },
+
     handleMouseOver( item ){
       this.cur_point = item
     },
+
     getScales() {
       const x = d3.scaleTime().range([0, this.chart_width])
       const y = d3.scaleLinear().range([this.chart_height, 0])
@@ -83,12 +90,9 @@ export default {
       .attr("cy", d=> this.scale.y(d.value*this.elements[elem].modifier))
       .attr("stroke",this.elements[elem].color)
       .on('mouseover', this.handleMouseOver)
-
-
     },
 
     drawChart(){
-
       const margin = 50
       const svg_width = this.chart_settings.width
       const svg_height = this.chart_settings.height
