@@ -76,33 +76,41 @@ export default {
           }
         return results
       }, [])
+    },
+    fetchData(){
+      this.$store.dispatch("setLoading", true)
+      console.log(this.station)
+      if (this.station.id.length == 11)
+        axios.get(this.url+this.station.id+".dly")
+             .then( response => (this.stationFile=response.hasOwnProperty('data')?response.data:""))
     }
+
   },
   watch: {
     stations( newStations ){
       console.log("HEY,  Stations are now loaded I mounted... Lets see if we have a station_id in play", this.$route.params)
       if(this.$route.params.hasOwnProperty('station_id') && newStations.length > 0 ){
-        this.$store.dispatch('setStation', this.stations.filter( station=> station.id==this.$route.params.station_id).pop())
+        this.$store.dispatch('setStation', this.$route.params.station_id)
       }
     },
-    station(newStation){
-        this.$store.dispatch("setLoading", true)
-        console.log("New Station", newStation, newStation.id.length )
-        if (newStation.id.length == 11)
-          axios.get(this.url+newStation.id+".dly")
-               .then( response => (this.stationFile=response.hasOwnProperty('data')?response.data:""))
+
+    "$route": "fetchData",
+
+    station(){
+      this.fetchData()
     },
+
     chart_settings(){
       this.parseData()
     },
+
     stationFile(){
       this.parseData()
     }
-
   },
   mounted(){
-
-
+    console.log("MOUNTED Chart item... Fetching.");
+    this.fetchData()
   },
 
   components: {
