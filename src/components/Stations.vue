@@ -41,7 +41,7 @@ export default {
       },
       set( newStation ) {
         console.log("SETTER CALLEd", newStation)
-        this.$store.dispatch("setStation", this.stations.filter( item => item.id == newStation ).pop())
+        this.$store.dispatch("setStation", newStation)
       }
     },
     ...mapState(['state', 'country', 'station', 'stations'])
@@ -66,10 +66,8 @@ export default {
     States
   },
   methods: {
-    setFile( file ){
-      console.log(this.stations.filter( item => item.id == file ).pop())
-      var station = this.stations.filter( item => item.id == file ).pop()
-      this.$store.dispatch("setStation", station )
+    setFile( station_id ){
+      this.$store.dispatch("setStation", station_id)
     }
   }
 }
