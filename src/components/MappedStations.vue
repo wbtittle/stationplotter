@@ -19,20 +19,10 @@ export default {
   },
   methods: {
     markerClick( marker ){
-       const station = this.stations.filter( item => item.id == marker.local_id ).pop()
-       this.$store.dispatch("setStation", station )
-
-       this.map.setCenter({ lat:parseFloat(station.lat), lng:parseFloat(station.lng)})
-    }
-  },
-  watch: {
-    station(newStation){
-      console.log("Map Watch New Station", newStation, this.map)
-      if (this.map) {
-         this.map.setCenter({ lat:parseFloat(newStation.lat), lng:parseFloat(newStation.lng)})
-      }
+       this.$store.dispatch("setStation", marker.local_id )
     },
-    async stations( newStations){
+    async initializeMap(){
+      console.log("Initializing map")
       try {
         const google = await gmapsInit();
         const geocoder = new google.maps.Geocoder()
@@ -46,12 +36,13 @@ export default {
           }
 
           this.map.setCenter(results[0].geometry.location)
-          this.map.fitBounds(results[0].geometry.viewport)
+          this.map.setZoom(7)
         })
 
-        this.markers = newStations.map( ( station ) => {
+        this.markers = this.stations.map( ( station ) => {
           const marker = new google.maps.Marker(
-            { local_id: station.id,
+            {
+              local_id: station.id,
               title: station.name,
               position: { lat: parseFloat(station.lat), lng: parseFloat(station.lng)  },
               lMap
@@ -61,13 +52,29 @@ export default {
           return marker
         })
 
-        new MarkerClusterer(lMap, this.markers, {minimumClusterSize: 5, imagePath: '/img/m'})
+        new MarkerClusterer(lMap, this.markers, {minimumClusterSize: 5, imagePath: '/img/m', maxZoom: 7})
       } catch (error) {
         console.log(error)
       }
     }
   },
-  computed: mapGetters(['stations', 'station'])
+  watch: {
+    "$route": "initiazeMap",
+    station(newStation){
+      console.log("Map Watch New Station", newStation, this.map)
+      if (this.map) {
+         this.map.setCenter({ lat:parseFloat(newStation.lat), lng:parseFloat(newStation.lng)})
+         this.map.setCenter({ lat:parseFloat(newStation.lat), lng:parseFloat(newStation.lng)})
+      }
+    },
+    stations( ){
+      this.initializeMap()
+    }
+  },
+  computed: mapGetters(['stations', 'station']),
+  mounted(){
+    this.initializeMap()
+  }
 }
 </script>
 
