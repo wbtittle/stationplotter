@@ -57,9 +57,10 @@ export default new Vuex.Store({
       commit("SET_LOADING", value)
     },
     setCountry( { commit }, country ){
-      commit('SET_COUNTRY', country);
+      commit('SET_COUNTRY', country)
     },
-    setStation( { commit }, station ){
+    setStation( { commit, state }, station_id ){
+      const station = state.stations.stations.filter( station => station.id == station_id ).pop()
       commit('SET_STATION', station);
     },
     setState( { commit }, value ){
