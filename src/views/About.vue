@@ -22,16 +22,31 @@
 
     <h2>Interesting locations:</h2>
     <ul>
-      <li>Vostok Antartica (TMIN -- -80C)</li>
-      <li>Anyplace in Eastern Russia Range of temperatures</li>
-      <li>Death Valley -- (TMAX -- > 50C)</li>
+      <li><button v-on:click="direct_to('AYM00089606')">Vostok Antartica</button> (TMIN -- &lt; -80C)  </li>
+      <li>Anyplace in <button v-on:click="direct_to('RSM00025503')">Eastern Russia</button> Range of temperatures </li>
+      <li><button v-on:click="direct_to('USC00042319')">Death Valley</button> -- (TMAX -- > 50C)</li>
+      <li><button v-on:click="direct_to('VEM00080416')">Caracas, Venezuela</button> -- (TMAX -- > 50C)</li>
+      <li><button v-on:click="direct_to('DRM00078486')">SANTO DOMINGO</button> -- (TMAX -- > increasing)</li>
     </ul>
 
     <p> In case you are wondering why the range of the y-axis is the size it is. See Vostok (TMIN) and Death Valley (TMAX). This is the range of temperatures on our beloved planet</p>
 
   </div>
 </template>
-
+<script>
+  export default {
+    name: "About",
+    data(){
+      return {}
+    },
+    methods: {
+      direct_to( id ){
+        this.$store.dispatch("setStation", id)
+        this.$router.push({ name: 'station', params: { station_id: id }})
+      }
+    }
+  }
+</script>
 <style>
   p {max-width: 800px}
 </style>
