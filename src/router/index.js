@@ -3,7 +3,6 @@ import VueRouter from 'vue-router'
 import Home from '../views/Home'
 import About from '../views/About'
 
-
 Vue.use(VueRouter)
 
 const routes = [
@@ -20,7 +19,8 @@ const routes = [
   {
     path: '/:station_id',
     name: 'station',
-    component: Home
+    component: Home,
+    props: true
   }
 
 ]

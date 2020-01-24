@@ -25,19 +25,17 @@ export default {
       console.log("Initializing map")
       try {
         const google = await gmapsInit();
-        const geocoder = new google.maps.Geocoder()
         this.map = new google.maps.Map(this.$el)
         const lMap = this.map
 
 
-        geocoder.geocode({ location:{ lat:parseFloat(this.station.lat), lng:parseFloat(this.station.lng) }}, (results, status) => {
-          if (status !== 'OK' || !results[0]){
-            throw new Error(status)
-          }
 
-          this.map.setCenter(results[0].geometry.location)
-          this.map.setZoom(7)
-        })
+          this.map.setCenter({ lat:parseFloat(this.station.lat), lng:parseFloat(this.station.lng) })
+          if (parseFloat(this.station.lat)==0 && parseFloat(this.station.lng)==0)
+            this.map.setZoom(0)
+          else
+            this.map.setZoom(5)
+
 
         this.markers = this.stations.map( ( station ) => {
           const marker = new google.maps.Marker(
@@ -64,7 +62,7 @@ export default {
       console.log("Map Watch New Station", newStation, this.map)
       if (this.map) {
          this.map.setCenter({ lat:parseFloat(newStation.lat), lng:parseFloat(newStation.lng)})
-         this.map.setCenter({ lat:parseFloat(newStation.lat), lng:parseFloat(newStation.lng)})
+         this.map.setZoom(6)
       }
     },
     stations( ){

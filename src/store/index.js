@@ -16,7 +16,7 @@ export default new Vuex.Store({
   state: {
     chart_settings: { width: 800, height: 600, start_year: 1850, end_year: (new Date()).getFullYear()+1, units: "C", elem:["TMAX"], low:"-80", high:"50" },
     country:{"code":"UK", "name":"United Kingdom"},
-    station:{ "id":"","country":"","lat":"45.00","lng":"-45.00","alt":"","state":"","name":"","gsn":"","hcn":"","wmo":"" ,inventory:["TMAX"]},
+    station:{ "id":"","country":"","lat":"0","lng":"0","alt":"","state":"","name":"","gsn":"","hcn":"","wmo":"" ,inventory:["TMAX"]},
     state:{"code":"", "name":""},
     loading: false,
     station_elem: ''
