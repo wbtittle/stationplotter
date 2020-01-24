@@ -5,7 +5,7 @@
     </div>
     <h4>{{ station.name | shorten }} {{ station.id }} </h4>
     <h5>{{ network[station.network] }}</h5>
-    <h5>{{ station.lat }}<span> {{ station.lng }} </span></h5><h5><span> {{ station.state }} </span><span> {{ station.country }} </span></h5>
+    <h5>Source File: {{ getUrl }}</h5>
 
     <Chart :chartData="chartData" />
   </div>
@@ -36,7 +36,7 @@ export default {
   },
   computed: {
     getUrl(){
-        return this.url+this.siteFile+".dly"
+        return this.url+this.station.id+".dly"
     },
     tempkeys(){
       if (this.temperatures.length > 0)
@@ -78,11 +78,13 @@ export default {
       }, [])
     },
     fetchData(){
-      this.$store.dispatch("setLoading", true)
-      console.log(this.station)
       if (this.station.id.length == 11)
+      {
         axios.get(this.url+this.station.id+".dly")
              .then( response => (this.stationFile=response.hasOwnProperty('data')?response.data:""))
+
+        this.$store.dispatch("setLoading", true)
+      }
     }
 
   },
