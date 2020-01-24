@@ -181,7 +181,7 @@
   "SX86":{"description":"Max Soil Temp Bare Muck 150cm","color":"#000", "shape":"circle" ,"range":"auto", "modifier":0.1, "units": "C" },
   "SX87":{"description":"Max Soil Temp Bare Muck 180cm","color":"#000", "shape":"circle" ,"range":"auto", "modifier":0.1, "units": "C" },
 
-  "TAVG":{"description":"Average temperature (tenths of degrees C)[Note that TAVG from source 'S' corresponds to an average for the period ending at 2400 UTC rather than local midnight]","color":"#0F0", "shape":"circle" ,"range":"auto", "modifier":0.1, "units": "days" },
+  "TAVG":{"description":"Average temperature (tenths of degrees C)[Note that TAVG from source 'S' corresponds to an average for the period ending at 2400 UTC rather than local midnight]","color":"#FFA500", "shape":"circle" ,"range":"auto", "modifier":0.1, "units": "days" },
   "THIC":{"description":"Thickness of ice on water (tenths of mm)","color":"#000", "shape":"circle" ,"range":"auto", "modifier":0.1, "units": "days" },
   "TOBS":{"description":"Temperature at the time of observation (tenths of degrees C)","color":"#0F0", "shape":"circle" ,"range":"auto", "modifier":0.1, "units": "days"},
   "TSUN":{"description":"Daily total sunshine (minutes)","color":"#000", "shape":"circle" ,"range":"auto", "modifier":1, "units": "min" },

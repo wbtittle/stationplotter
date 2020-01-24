@@ -60,14 +60,14 @@
     "FZ":"flagged as a result of an official Datzilla investigation"
   },
   "network": {
-    "0":"unspecified (station identified by up to eight alphanumeric characters)",
-    "1":"Community Collaborative Rain, Hail,and Snow (CoCoRaHS) based identification number.  To ensure consistency with with GHCN Daily, all numbers in the original CoCoRaHS IDs have been left-filled to make them all four digits long.  In addition, the characters '-'' and '_' have been removed to ensure that the IDs do not exceed 11 characters when preceded by 'US1'. For example, the CoCoRaHS ID 'AZ-MR-156' becomes 'US1AZMR0156' in GHCN-Daily",
-    "C":"U.S. Cooperative Network identification number (last six characters of the GHCN-Daily ID)",
+    "0":"unspecified",
+    "1":"Community Collaborative Rain, Hail,and Snow",
+    "C":"U.S. Cooperative Network",
     "E":"Identification number used in the ECA&D non-blended dataset",
-    "M":"World Meteorological Organization ID (last five characters of the GHCN-Daily ID)",
+    "M":"World Meteorological Organization ID",
     "N":"Identification number used in data supplied by a National Meteorological or Hydrological Center",
-    "R":"U.S. Interagency Remote Automatic Weather Station (RAWS) identifier",
-    "S":"U.S. Natural Resources Conservation Service SNOwpack TELemtry (SNOTEL) station identifier",
-    "W":"WBAN identification number (last five characters of the GHCN-Daily ID)"
+    "R":"U.S. Interagency Remote Automatic Weather Station",
+    "S":"U.S. Natural Resources Conservation Service SNOwpack TELemtry",
+    "W":"WBAN identification number"
   }
 }
